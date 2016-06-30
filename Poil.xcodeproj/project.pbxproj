@@ -18,6 +18,7 @@
 		2B5AB1551D1555DD006A9A59 /* PoilProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AB1541D1555DD006A9A59 /* PoilProductTableViewCell.swift */; };
 		2B5AB1571D157861006A9A59 /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AB1561D157861006A9A59 /* ProductsModel.swift */; };
 		2B7254B41D2174F700BBD213 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7254B31D2174F700BBD213 /* Product+CoreDataProperties.swift */; };
+		2B7254B81D23CC0300BBD213 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7254B71D23CC0300BBD213 /* FullScreenImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		2B5AB1541D1555DD006A9A59 /* PoilProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoilProductTableViewCell.swift; sourceTree = "<group>"; };
 		2B5AB1561D157861006A9A59 /* ProductsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
 		2B7254B31D2174F700BBD213 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2B7254B71D23CC0300BBD213 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				2B06C8901D1D3853003177B7 /* Model */,
 				2B5AB11F1D154604006A9A59 /* Main.storyboard */,
+				2B7254B71D23CC0300BBD213 /* FullScreenImageViewController.swift */,
 				2B5AB1541D1555DD006A9A59 /* PoilProductTableViewCell.swift */,
 				2B5AB1521D155547006A9A59 /* PoilProductsTableViewController.swift */,
 				2B06C88D1D1D1909003177B7 /* Core Data */,
@@ -186,6 +189,7 @@
 				2B06C88F1D1D383C003177B7 /* ProductsListReader.swift in Sources */,
 				2B06C88C1D1D1904003177B7 /* Product.swift in Sources */,
 				2B7254B41D2174F700BBD213 /* Product+CoreDataProperties.swift in Sources */,
+				2B7254B81D23CC0300BBD213 /* FullScreenImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
