@@ -119,6 +119,7 @@ class PoilProductsTableViewController: UITableViewController {
         if let sender = sender as? PoilProductTableViewCell {
             if let destinationViewController = segue.destinationViewController as? FullScreenImageViewController{
                 destinationViewController.product = sender.product
+                //destinationViewController.hidesBottomBarWhenPushed = true
             }
         }
         // Get the new view controller using segue.destinationViewController.

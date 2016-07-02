@@ -94,24 +94,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="lmP-bv-DAA">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="lmP-bv-DAA">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="0Dq-vt-pOQ" appends="YES" id="BZP-7A-4Nk"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lmP-bv-DAA" secondAttribute="trailing" id="Mdn-xR-Z9q"/>
-                            <constraint firstItem="lmP-bv-DAA" firstAttribute="top" secondItem="VbE-Fl-otG" secondAttribute="top" id="WAn-cK-ckM"/>
-                            <constraint firstItem="lmP-bv-DAA" firstAttribute="bottom" secondItem="9dD-Ru-M4B" secondAttribute="top" id="fti-6B-zbu"/>
-                            <constraint firstItem="lmP-bv-DAA" firstAttribute="leading" secondItem="VbE-Fl-otG" secondAttribute="leading" id="n1C-1k-lRt"/>
+                            <constraint firstItem="lmP-bv-DAA" firstAttribute="leading" secondItem="VbE-Fl-otG" secondAttribute="leading" id="E1q-ub-Bjp"/>
+                            <constraint firstItem="lmP-bv-DAA" firstAttribute="bottom" secondItem="9dD-Ru-M4B" secondAttribute="top" id="KyX-fh-u2i"/>
+                            <constraint firstItem="lmP-bv-DAA" firstAttribute="top" secondItem="VbE-Fl-otG" secondAttribute="top" id="Vg9-lG-KsS"/>
+                            <constraint firstAttribute="trailing" secondItem="lmP-bv-DAA" secondAttribute="trailing" id="fxX-t0-fAf"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scrollView" destination="lmP-bv-DAA" id="IOn-YM-dXQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OiN-zC-lj1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0Dq-vt-pOQ">
+                    <connections>
+                        <action selector="imageTapped:" destination="vCW-Cp-MV9" id="MOB-xz-2me"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4332" y="1195"/>
         </scene>
