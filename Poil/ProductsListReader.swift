@@ -13,6 +13,7 @@ class ProductsListReader: NSObject {
     
     class func retrieveNames(fromDocument docName:NSURL) -> Array<String>{
         do{
+            retrievedNames.removeAll()
             let content = try String(contentsOfURL: docName)
             let lines = content.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "\n"))
             for var line in lines{

@@ -16,8 +16,11 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         didSet{
             scrollView.delegate = self
             scrollView.contentSize = imageView.bounds.size
-            scrollView.backgroundColor = UIColor.blueColor()
-           setImageSize()
+            scrollView.backgroundColor = UIColor.whiteColor()
+            setImageSize()
+            scrollView.zoomScale = scrollView.minimumZoomScale
+            
+            adjustInset()
             
         }
     }
@@ -27,8 +30,7 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
             self.navigationController?.setNavigationBarHidden(!hidden, animated: true)
             hidden = !hidden
             setNeedsStatusBarAppearanceUpdate()
-
-            print(hidden)
+            scrollView.backgroundColor = hidden ? UIColor.blackColor() : UIColor.whiteColor()
         }
     }
     private var imageView = UIImageView()
@@ -43,74 +45,45 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         return hidden
     }
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Slide
+        return .Fade
     }
     
     private func setImageSize(){
         scrollView.maximumZoomScale = 1.0
-        
         let imageHeight = imageView.bounds.size.height
         let imageWidth = imageView.bounds.size.width
         let viewHeight = UIScreen.mainScreen().bounds.height
         let viewWidth = UIScreen.mainScreen().bounds.width
-        
         let wScale = viewWidth/imageWidth
         let hScale = viewHeight/imageHeight
         scrollView.minimumZoomScale = min(wScale,hScale)
-        scrollView.zoomScale = min(wScale,hScale)
         
         
-        scrollView.contentOffset.y = wScale < imageHeight ? (viewHeight - imageHeight)/2 :0
-        scrollView.contentOffset.x = hScale < imageWidth ? (viewWidth - imageWidth)/2 : 0
-        
-        
-        
-//        let minz = scrollView.minimumZoomScale
-//        let zs = scrollView.zoomScale
-        
-//        print(minz)
-//        print(zs)
-/*
-        let pomer = imageHeight/imageWidth
-        
-        
-        //pokud se to přizpůsobí na vysku
-        if pomer > viewHeight/viewWidth {
-            imageView.frame.size.height = viewHeight
-            imageView.frame.size.width = imageView.bounds.size.height/pomer
-        
-            scrollView.minimumZoomScale = viewHeight/imageHeight
-            print("minimum zoom scale: \(scrollView.minimumZoomScale)")
-        }
-        else{
-            imageView.frame.size.width = viewWidth
-            imageView.frame.size.height = pomer*imageView.bounds.size.width
-            
-            scrollView.minimumZoomScale = viewWidth/imageWidth
-            print("minimum zoom scale: \(scrollView.minimumZoomScale)")
 
-        }
+    }
+    
+    private func adjustInset(){
+        let imageHeight = imageView.bounds.size.height
+        let imageWidth = imageView.bounds.size.width
+        let viewHeight = UIScreen.mainScreen().bounds.height
+        let viewWidth = UIScreen.mainScreen().bounds.width
+        let wScale = viewWidth/imageWidth
+        let hScale = viewHeight/imageHeight
+        let topInset = (wScale < hScale || min(wScale,hScale) > 1) ? (viewHeight - (scrollView.zoomScale*imageHeight))/2 : 0
+        let leftInset = (hScale < wScale || min(wScale,hScale) > 1) ? (viewWidth - (scrollView.zoomScale*imageWidth))/2 : 0
         
-        print("scrollview content size: \(scrollView.contentSize)")*/
-
+        scrollView.contentInset.top = topInset
+        scrollView.contentInset.left = leftInset
+        
     }
     
     private func setImage(){
         imageView.image = UIImage(data: (product?.imagePath)!) //TODO: chybi obrazek
         imageView.sizeToFit()
-        //scrollView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
         scrollView?.contentSize = imageView.bounds.size
     }
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        let imageHeight = imageView.bounds.size.height
-        let imageWidth = imageView.bounds.size.width
-        let viewHeight = UIScreen.mainScreen().bounds.height
-        let viewWidth = UIScreen.mainScreen().bounds.width
-        
-        let wScale = viewWidth/imageWidth
-        let hScale = viewHeight/imageHeight
-        scrollView.contentOffset.y = wScale < imageHeight ? (viewHeight - imageHeight)/2 :0
-        scrollView.contentOffset.x = hScale < imageWidth ? (viewWidth - imageWidth)/2 : 0
+       adjustInset()
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -121,14 +94,20 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         scrollView.addSubview(imageView)
         self.tabBarController?.tabBar.hidden = true
+        self.title = product?.name
     }
     
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        print(hidden)
         setNeedsStatusBarAppearanceUpdate()
-        print(hidden)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setImageSize()
+        scrollView.zoomScale = scrollView.minimumZoomScale > scrollView.zoomScale ? scrollView.minimumZoomScale : scrollView.zoomScale
+        adjustInset()
     }
 
     /*

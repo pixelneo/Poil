@@ -17,6 +17,9 @@
 		2B5AB1531D155547006A9A59 /* PoilProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AB1521D155547006A9A59 /* PoilProductsTableViewController.swift */; };
 		2B5AB1551D1555DD006A9A59 /* PoilProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AB1541D1555DD006A9A59 /* PoilProductTableViewCell.swift */; };
 		2B5AB1571D157861006A9A59 /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AB1561D157861006A9A59 /* ProductsModel.swift */; };
+		2B6919181D29627600DE79ED /* SingleViewCoreData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2B6919151D29627600DE79ED /* SingleViewCoreData.sqlite */; };
+		2B6919191D29627600DE79ED /* SingleViewCoreData.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 2B6919161D29627600DE79ED /* SingleViewCoreData.sqlite-shm */; };
+		2B69191A1D29627600DE79ED /* SingleViewCoreData.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 2B6919171D29627600DE79ED /* SingleViewCoreData.sqlite-wal */; };
 		2B7254B41D2174F700BBD213 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7254B31D2174F700BBD213 /* Product+CoreDataProperties.swift */; };
 		2B7254B81D23CC0300BBD213 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7254B71D23CC0300BBD213 /* FullScreenImageViewController.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +37,9 @@
 		2B5AB1521D155547006A9A59 /* PoilProductsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoilProductsTableViewController.swift; sourceTree = "<group>"; };
 		2B5AB1541D1555DD006A9A59 /* PoilProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoilProductTableViewCell.swift; sourceTree = "<group>"; };
 		2B5AB1561D157861006A9A59 /* ProductsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
+		2B6919151D29627600DE79ED /* SingleViewCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SingleViewCoreData.sqlite; sourceTree = "<group>"; };
+		2B6919161D29627600DE79ED /* SingleViewCoreData.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SingleViewCoreData.sqlite-shm"; sourceTree = "<group>"; };
+		2B6919171D29627600DE79ED /* SingleViewCoreData.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SingleViewCoreData.sqlite-wal"; sourceTree = "<group>"; };
 		2B7254B31D2174F700BBD213 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2B7254B71D23CC0300BBD213 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +93,7 @@
 		2B5AB11A1D154604006A9A59 /* Poil */ = {
 			isa = PBXGroup;
 			children = (
+				2B69191B1D29627D00DE79ED /* Database */,
 				2B06C8901D1D3853003177B7 /* Model */,
 				2B5AB11F1D154604006A9A59 /* Main.storyboard */,
 				2B7254B71D23CC0300BBD213 /* FullScreenImageViewController.swift */,
@@ -107,6 +114,16 @@
 				2B5AB12A1D154604006A9A59 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2B69191B1D29627D00DE79ED /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2B6919151D29627600DE79ED /* SingleViewCoreData.sqlite */,
+				2B6919161D29627600DE79ED /* SingleViewCoreData.sqlite-shm */,
+				2B6919171D29627600DE79ED /* SingleViewCoreData.sqlite-wal */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,7 +186,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B5AB1291D154604006A9A59 /* LaunchScreen.storyboard in Resources */,
+				2B6919181D29627600DE79ED /* SingleViewCoreData.sqlite in Resources */,
+				2B69191A1D29627600DE79ED /* SingleViewCoreData.sqlite-wal in Resources */,
 				2B5AB1261D154604006A9A59 /* Assets.xcassets in Resources */,
+				2B6919191D29627600DE79ED /* SingleViewCoreData.sqlite-shm in Resources */,
 				2B5AB1211D154604006A9A59 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

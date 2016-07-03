@@ -11,8 +11,18 @@ import CoreData
 
 class PoilProductsTableViewController: UITableViewController {
 
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     var allProducts = [Product]()
+    var searchedProducts = [Product]()
+    
+    func searchProducts(forFraze fraze: String, scope: String = "All"){
+        searchedProducts = allProducts.filter { product in
+            return (product.name?.lowercaseString.stringByFoldingWithOptions(.DiacriticInsensitiveSearch, locale: NSLocale.currentLocale()).containsString(fraze.lowercaseString.stringByFoldingWithOptions(.DiacriticInsensitiveSearch, locale: NSLocale.currentLocale())))!
+        }
+        tableView.reloadData()
+    }
     
     private func loadCSV(){
         let products = ProductsModel.getProductList()
@@ -33,14 +43,16 @@ class PoilProductsTableViewController: UITableViewController {
 //        for i in allProducts{
 //           print("jmeno: \(i.name!), \(i.imagePath!)\n")
 //        }
+     
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
         
         loadCSV()
         allProducts = Product.getProducts(true, fromContext: managedObjectContext!)!
-        
-        print("neco")
-        for i in allProducts{
-            print(i.name)
-        }
+     
         self.tableView.reloadData()
         
     }
@@ -58,13 +70,15 @@ class PoilProductsTableViewController: UITableViewController {
     }
 */
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.active && searchController.searchBar.text != ""{
+            return  searchedProducts.count
+        }
         return allProducts.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let product = allProducts[indexPath.row]
+        let product = (searchController.active && searchController.searchBar.text != "") ? searchedProducts[indexPath.row] : allProducts[indexPath.row]
         if let cell = tableView.dequeueReusableCellWithIdentifier("ProductCell", forIndexPath: indexPath) as? PoilProductTableViewCell {
             cell.product = product
             return cell
@@ -74,7 +88,7 @@ class PoilProductsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        print("\(indexPath.row)\n")
+        //print("\(indexPath.row)\n")
     }
 
     /*
@@ -125,5 +139,9 @@ class PoilProductsTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-
+}
+extension PoilProductsTableViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController){
+        searchProducts(forFraze: searchController.searchBar.text!)
+    }
 }

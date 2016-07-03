@@ -15,14 +15,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Hledat" id="DZ9-8o-dNI">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCell" rowHeight="100" id="riS-yh-tmj" customClass="PoilProductTableViewCell" customModule="Poil" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="136" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="riS-yh-tmj" id="FVq-C8-WQB">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
@@ -85,7 +80,7 @@
         <!--Full Screen Image View Controller-->
         <scene sceneID="rZ4-Bx-Hx2">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="vCW-Cp-MV9" customClass="FullScreenImageViewController" customModule="Poil" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="vCW-Cp-MV9" customClass="FullScreenImageViewController" customModule="Poil" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jTr-cy-YlL"/>
                         <viewControllerLayoutGuide type="bottom" id="9dD-Ru-M4B"/>
@@ -94,7 +89,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="lmP-bv-DAA">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="lmP-bv-DAA">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -104,10 +99,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lmP-bv-DAA" firstAttribute="leading" secondItem="VbE-Fl-otG" secondAttribute="leading" id="E1q-ub-Bjp"/>
-                            <constraint firstItem="lmP-bv-DAA" firstAttribute="bottom" secondItem="9dD-Ru-M4B" secondAttribute="top" id="KyX-fh-u2i"/>
-                            <constraint firstItem="lmP-bv-DAA" firstAttribute="top" secondItem="VbE-Fl-otG" secondAttribute="top" id="Vg9-lG-KsS"/>
-                            <constraint firstAttribute="trailing" secondItem="lmP-bv-DAA" secondAttribute="trailing" id="fxX-t0-fAf"/>
+                            <constraint firstItem="lmP-bv-DAA" firstAttribute="top" secondItem="VbE-Fl-otG" secondAttribute="top" id="CmM-5I-rF9"/>
+                            <constraint firstAttribute="trailing" secondItem="lmP-bv-DAA" secondAttribute="trailing" id="KvZ-it-XxK"/>
+                            <constraint firstItem="lmP-bv-DAA" firstAttribute="leading" secondItem="VbE-Fl-otG" secondAttribute="leading" id="LRH-Lm-3sE"/>
+                            <constraint firstAttribute="bottom" secondItem="lmP-bv-DAA" secondAttribute="bottom" id="OCK-hK-6nk"/>
                         </constraints>
                     </view>
                     <connections>
