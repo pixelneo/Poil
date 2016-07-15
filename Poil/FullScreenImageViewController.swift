@@ -78,7 +78,7 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func setImage(){
-        imageView.image = UIImage(data: (product?.imagePath)!) //TODO: chybi obrazek
+        imageView.image = UIImage(data: product?.imagePath ?? NSData(contentsOfURL: ProductsModel.fileInDocumentsPath("images/no_image.png")!)!) //TODO: chybi obrazek
         imageView.sizeToFit()
         scrollView?.contentSize = imageView.bounds.size
     }

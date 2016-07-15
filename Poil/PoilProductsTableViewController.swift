@@ -24,14 +24,8 @@ class PoilProductsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    private func loadCSV(){
-        let products = ProductsModel.getProductList()
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         
-        //TODO: vyřešit aby main queue nečekala
-        managedObjectContext?.performBlockAndWait(){
-            Product.addNewProducts(products, inContext: self.managedObjectContext!)
-            _ = try? self.managedObjectContext?.save()
-        }
     }
 
     
@@ -43,14 +37,14 @@ class PoilProductsTableViewController: UITableViewController {
 //        for i in allProducts{
 //           print("jmeno: \(i.name!), \(i.imagePath!)\n")
 //        }
-     
+        tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        print(ProductsModel.docDir)
         
-        loadCSV()
         allProducts = Product.getProducts(true, fromContext: managedObjectContext!)!
      
         self.tableView.reloadData()
@@ -59,6 +53,7 @@ class PoilProductsTableViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("memory problem")
         // Dispose of any resources that can be recreated.
     }
 
@@ -143,5 +138,11 @@ class PoilProductsTableViewController: UITableViewController {
 extension PoilProductsTableViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController){
         searchProducts(forFraze: searchController.searchBar.text!)
+    }
+}
+extension NSLayoutConstraint {
+    override public var description:String {
+        let id = identifier ?? ""
+        return "id: \(id), constant: \(constant)"
     }
 }

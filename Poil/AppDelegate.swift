@@ -7,17 +7,28 @@
 //
 
 import UIKit
+import Foundation
 import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+       
         return true
+    }
+    func applicationDidFinishLaunching(application: UIApplication) {
+        // copyImagesAndListOfProductsToDocuments()
+        if isFirstLaunch(){
+            print("neco")
+            loadCSV()
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -57,11 +68,93 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let modelURL = NSBundle.mainBundle().URLForResource("Poil", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
+    
+    func isFirstLaunch() -> Bool {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let _ = defaults.stringForKey("launched"){
+            return false
+        }
+        else{
+            defaults.setBool(true, forKey: "launched")
+            return true
+        }
+    }
+    
+    func loadCSV(){
+        let products = ProductsModel.getProductList()
+        
+        //TODO: vyřešit aby main queue nečekala
+        managedObjectContext.performBlockAndWait(){
+            Product.addNewProducts(products, inContext: self.managedObjectContext)
+            _ = try? self.managedObjectContext.save()
+        }
+       
+    }
+    
+    //isn't used, data is loaded to core data straight from bundle
+    func copyImagesAndListOfProductsToDocuments(){
+        let fileMgr = NSFileManager.defaultManager()
+        let docDir = fileMgr.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
+        if !fileMgr.fileExistsAtPath(docDir!.URLByAppendingPathComponent("list_palm.csv").path!) {
+            _ = try? fileMgr.createDirectoryAtURL((docDir!.URLByAppendingPathComponent("images")), withIntermediateDirectories: false, attributes: nil)
+            let imagesDir = docDir!.URLByAppendingPathComponent("images")
+            let imagesNames = NSBundle.mainBundle().pathsForResourcesOfType("jpg", inDirectory: "Data/images")
+            let csvListsNames = NSBundle.mainBundle().pathsForResourcesOfType("csv", inDirectory: "Data")
+            for image in imagesNames{
+                let imageName = NSURL(fileURLWithPath: image).lastPathComponent
+                do {
+                    try fileMgr.copyItemAtURL(NSURL(fileURLWithPath: image), toURL: imagesDir.URLByAppendingPathComponent(imageName!))
+                }catch let error{
+                    print(error)
+                }
+            }
+            
+            for list in csvListsNames {
+                let fileName = NSURL(fileURLWithPath: list).lastPathComponent
+                do {
+                    try fileMgr.copyItemAtURL(NSURL(fileURLWithPath: list), toURL: docDir!.URLByAppendingPathComponent(fileName!))
+                }catch let error{
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
+    //supposes that all data are stored in dtb, not external storage (large images)... therefore doesn't work :-{
+    func copyDatabaseToDocuments(){
+        let dirPaths =  NSSearchPathForDirectoriesInDomains(.DocumentDirectory,.UserDomainMask, true)
+        let docsDir = dirPaths[0]
+        let destPath1 = (docsDir as NSString).stringByAppendingPathComponent("/SingleViewCoreData.sqlite")
+        let destPath2 = (docsDir as NSString).stringByAppendingPathComponent("/SingleViewCoreData.sqlite-shm")
+        let destPath3 = (docsDir as NSString).stringByAppendingPathComponent("/SingleViewCoreData.sqlite-wal")
+        let destPath4 = (docsDir as NSString).stringByAppendingPathComponent("/no_image.png")
 
+        let fileMgr = NSFileManager.defaultManager()
+        
+        if let path = NSBundle.mainBundle().pathForResource("SingleViewCoreData", ofType:"sqlite") {
+            _ = try? fileMgr.copyItemAtPath(path, toPath: destPath1)
+        }
+        if let path = NSBundle.mainBundle().pathForResource("SingleViewCoreData", ofType:"sqlite-shm") {
+            _ = try? fileMgr.copyItemAtPath(path, toPath: destPath2)
+        }
+        if let path = NSBundle.mainBundle().pathForResource("SingleViewCoreData", ofType:"sqlite-wal") {
+            _ = try? fileMgr.copyItemAtPath(path, toPath: destPath3)
+        }
+        if let path = NSBundle.mainBundle().pathForResource("no_image", ofType:"png") {
+            _ = try? fileMgr.copyItemAtPath(path, toPath: destPath4)
+        }
+       
+    }
+    
+    
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        
+        //self.copyDatabaseToDocuments()
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {

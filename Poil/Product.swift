@@ -22,7 +22,6 @@ class Product: NSManagedObject {
                     newProduct.name = p.name
                     newProduct.palm = p.palm
                     newProduct.imagePath = p.imagePath
-                
                 }
             }
         }

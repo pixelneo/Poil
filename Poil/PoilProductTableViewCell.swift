@@ -33,7 +33,13 @@ class PoilProductTableViewCell: UITableViewCell {
             productLabel?.textColor = Bool(product.palm) ? UIColor(red: 0.53, green: 0, blue: 0, alpha: 1.0 ) : UIColor(red: 0, green: 0.53, blue: 0.0, alpha: 1.0 )
             productImage?.layer.cornerRadius = 15.0
             productImage?.contentMode = UIViewContentMode.ScaleAspectFill
-            productImage?.image = UIImage(data: product.imagePath!) //?? chybi obrazek
+            if product.imagePath == nil {
+                let neco = product.imagePath
+                print(product.name!)
+                print(neco)
+            }
+            productImage?.image = UIImage(data: product.imagePath!) //?? NSData(contentsOfURL: ProductsModel.fileInDocumentsPath("images/no_image.png")!)!)
+           
             
         }
     }
